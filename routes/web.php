@@ -15,4 +15,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
-});
+})->name('index');
+Route::get('/clients', function () {
+    return view('clients');
+})->name('clients');
+Route::get('/projects', function () {
+    return view('projects');
+})->name('projects');
+Route::get('/categories', function () {
+    return view('categories');
+})->name('categories');
+Route::get('/employees', function () {
+    return view('employees');
+})->name('employees');
+Route::get('/reports', function () {
+    return view('reports');
+})->name('reports');
