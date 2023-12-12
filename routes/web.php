@@ -18,7 +18,11 @@ use App\Http\Controllers\ClientController;
 Route::get('/', function () {
     return view('index');
 })->name('index');
-Route::get('/clients', [ClientController::class, 'index'])->name('clients');
+Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
+Route::post('/clients', [ClientController::class, 'store'])->name('clients.store');
+Route::delete('/clients/{id}', [ClientController::class, 'destroy'])->name('clients.delete');
+Route::put('/clients/{id}', [ClientController::class, 'update'])->name('clients.update');
+
 Route::get('/projects', function () {
     return view('projects');
 })->name('projects');

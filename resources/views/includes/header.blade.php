@@ -25,7 +25,7 @@
 <div class="container">
     <header class="header">
         <div class="inner-wrap">
-            <a href="./index.html" class="logo">
+            <a href="{{ route('clients.index') }}" class="logo">
                 <img src="{{ Vite::asset('resources/images/logo/logo-white.png') }}" alt="">
             </a>
             <nav class="navigation">
@@ -35,7 +35,7 @@
                         <a href="{{ route('index') }}" class="btn navigation__button navigation__button--active">Timesheet</a>
                     </li>
                     <li class="navigation__list">
-                        <a href="{{ route('clients') }}" class="btn navigation__button">Clients</a>
+                        <a href="{{ route('clients.index') }}" class="btn navigation__button">Clients</a>
                     </li>
                     <li class="navigation__list">
                         <a href="{{ route('projects') }}" class="btn navigation__button">Projects</a>
