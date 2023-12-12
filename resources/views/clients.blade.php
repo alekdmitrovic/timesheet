@@ -6,28 +6,31 @@
         <a href="javascript:;" class="modal__close">
             <span class="modal__icon"></span>
         </a>
-        <form class="info" action="javascript:;">
+        <form class="info" action="{{ route('clients.store') }}" method="POST">
+            @csrf
             <ul class="info__form">
                 <li class="info__list">
                     <label class="info__label">Client name:</label>
-                    <input type="text" class="in-text">
+                    <input name="name" type="text" class="in-text">
                 </li>
                 <li class="info__list">
                     <label class="report__label">Address:</label>
-                    <input type="text" class="in-text">
+                    <input name="address" type="text" class="in-text">
                 </li>
                 <li class="info__list">
                     <label class="report__label">City:</label>
-                    <input type="text" class="in-text">
+                    <input name="city" type="text" class="in-text">
                 </li>
                 <li class="info__list">
                     <label class="report__label">Zip/Postal code:</label>
-                    <input type="text" class="in-text">
+                    <input name="zip" type="text" class="in-text">
                 </li>
                 <li class="info__list">
                     <label class="report__label">Country:</label>
-                    <select class="info__select">
-                        <option value="">All</option>
+                    <select name="country" class="info__select">
+                        @foreach($countries as $country)
+                            <option value="{{ $country->code }}">{{ $country->name }}</option>
+                        @endforeach
                     </select>
                 </li>
             </ul>
@@ -136,40 +139,51 @@
                     <div class="accordion__intro">
                         <h4 class="accordion__title">{{ $client->name }}</h4>
                     </div>
-                    <form class="accordion__content" action="javascript:;">
+                    <div class="accordion__content">
+                        <form class="" action="{{ route('clients.update', $client->id) }}" method="POST">
                         <div class="info">
                             <div class="info__form">
                                 <ul class="info__wrapper">
                                     <li class="info__list">
                                         <label class="info__label">Client name:</label>
-                                        <input type="text" class="in-text" value="{{ $client->name }}">
+                                        <input type="text" name="name" class="in-text" value="{{ $client->name }}">
                                     </li>
                                     <li class="info__list">
                                         <label class="report__label">Address:</label>
-                                        <input type="text" class="in-text" value="{{ $client->address }}">
+                                        <input type="text" name="address" class="in-text" value="{{ $client->address }}">
                                     </li>
                                     <li class="info__list">
                                         <label class="report__label">City:</label>
-                                        <input type="text" class="in-text" value="{{ $client->city }}">
+                                        <input type="text" name="city" class="in-text" value="{{ $client->city }}">
                                     </li>
                                     <li class="info__list">
                                         <label class="report__label">Zip/Postal code:</label>
-                                        <input type="text" class="in-text" value="{{ $client->zip }}">
+                                        <input type="text" name="zip" class="in-text" value="{{ $client->zip }}">
                                     </li>
                                     <li class="info__list">
                                         <label class="report__label">Country:</label>
-                                        <select class="info__select">
-                                            <option value="">All</option>
+                                        <select name="country" class="info__select">
+                                            @foreach($countries as $country)
+                                                <option value="{{ $country->code }}" {{ $client->country == $country->code ? 'selected' : '' }}>{{ $country->name }}</option>
+                                            @endforeach
                                         </select>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                         <div class="btn-wrap">
-                            <button type="submit" class="btn btn--green"><span>Save changes</span></button>
-                            <button type="button" class="btn btn--red"><span>Delete</span></button>
+
+                                @csrf
+                                @method('put')
+                                <button type="submit" class="btn btn--green"><span>Save changes</span></button>
+                            </form>
+                            <form class="" action="{{ route('clients.delete', $client->id) }}" method="POST">
+                                @csrf
+                                @method('delete')
+                                <button type="button" class="btn btn--red" onclick="return confirm('Are you sure you want to delete this client?')"><span>Delete</span></button>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
             @endforeach
 
